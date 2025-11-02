@@ -1,27 +1,41 @@
-@extends('layouts.app')
-
+@extends('layouts.app_public')
 @section('content')
-<div class="relative w-full h-screen overflow-hidden">
 
-    <img src="{{ asset('images/bg.jng') }}" alt="Banner Clay Skinthetic" class="absolute inset-0 w-full h-full object-cover">
+<section class="relative h-[100vh] flex items-center justify-center text-center -mt-[10px]">
 
-    <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+  {{-- Background image --}}
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="{{ asset('images/bg.jpg') }}" 
+      alt="hero background" 
+      class="w-full h-full object-cover">
+  </div>
 
-    <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg">Reveal Your Glow Within’</h1>
-        <span class="bg-[#f5e6c8] text-[#6b4f2b] font-semibold text-xl px-4 py-2 rounded-md shadow-md mb-6">
-            Clay Skinthetic Clinic
-        </span>
-        <a href="#" class="bg-[#f5e6c8] text-[#6b4f2b] font-semibold px-5 py-2 rounded-md hover:bg-[#e5d5b8] transition">
-            Book Now
-        </a>
+  {{-- Overlay --}}
+  <div class="relative z-20 text-white -mt-[20px]">
+    <h1 class="text-[55px] font-serif font-semibold pt-14 pb-8 [text-shadow:2px_2px_8px_rgba(0,0,0,1)]">
+      Reveal Your Glow Within’
+    </h1>
+
+    <p class="text-[35px] font-serif font-semibold text-[#806B3F] bg-[#FBF7E7]/90 inline-block px-6 py-2 rounded-lg shadow-md border border-[#806B3F]">
+      Clay Skinthetic Clinic
+    </p>
+
+    <div class="mt-[110px]">
+      <a href="#"
+         class="bg-[#FBF7E7] text-[#806B3F] text-2xl px-6 py-3 rounded-lg font-serif font-semibold border border-[#806B3F]
+         hover:bg-[#806B3F]/70 hover:text-white hover:scale-105 transition-all duration-200">
+        Book Now
+      </a>
     </div>
+  </div>
 
-    <!-- ikon WhatsApp di pojok kanan bawah -->
-    <a href="https://wa.me/6281234567890" target="_blank"
-       class="absolute bottom-5 right-5">
-        <img src=""
-             alt="WhatsApp" class="w-14 h-14">
-    </a>
-</div>
+  {{-- Tombol WhatsApp --}}
+  <a href="https://wa.me/628123456789" target="_blank"
+     class="absolute bottom-3 right-5 z-20">
+    <img src="{{ asset('images/wa.png') }}" alt="WhatsApp"
+         class="w-14 h-14 drop-shadow-lg hover:scale-110 transition-transform duration-300">
+  </a>
+
+</section>
 @endsection
