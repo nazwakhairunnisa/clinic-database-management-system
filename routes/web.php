@@ -17,4 +17,37 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/navbar', function () {
+    return view('layouts.navbar');
+});
+
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/treatment', function () {
+    return view('treatment'); 
+})->name('treatment');
+
+Route::get('/treatment/all', function () {
+    return view('treatment-all');
+})->name('treatment.all');
+
+Route::get('/promo', function () {
+    return view('promo');
+})->name('promo');
+
+Route::get('/allpromo', function () {
+    return view('allpromo');
+})->name('allpromo');
+
+Route::get('/Contact', function () {
+    return view('Contact');
+})->name('Contact');
+
+
 require __DIR__.'/auth.php';
