@@ -12,7 +12,10 @@ export default {
     theme: {
         extend: {
             fontFamily: {
+                // font default sans
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                // font custom Abril Fatface
+                abril: ['"Abril Fatface"', 'serif'],
             },
         },
     },
