@@ -5,6 +5,7 @@ use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PatientRegisterController;
 use App\Http\Controllers\PatientLoginController;
+use App\Http\Controllers\Owner\TreatmentController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,38 +39,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::get('/navbar', function () {
-//     return view('layouts.navbar');
-// });
-
-// Route::get('/home', function () {
-//     return view('home');
-// })->name('home');
-
-// Route::get('/about', function () {
-//     return view('about');
-// })->name('about');
-
-// Route::get('/treatment', function () {
-//     return view('treatment'); 
-// })->name('treatment');
-
-// Route::get('/treatment/all', function () {
-//     return view('treatment-all');
-// })->name('treatment.all');
-
-// Route::get('/promo', function () {
-//     return view('promo');
-// })->name('promo');
-
-// Route::get('/allpromo', function () {
-//     return view('allpromo');
-// })->name('allpromo');
-
-// Route::get('/Contact', function () {
-//     return view('Contact');
-// })->name('Contact');
-
 Route::prefix('owner')->group(function () {
     Route::get('/dashboard', function () {
         return view('layouts.owner.dashboard_owner');
@@ -79,7 +48,7 @@ Route::prefix('owner')->group(function () {
         return view('layouts.owner.jadwal');
     })->name('owner.jadwal');
 
-    // 🧾 Route baru untuk Daftar Pasien
+    // Route baru untuk Daftar Pasien
     Route::get('/pasien', function () {
         return view('layouts.owner.pasien');
     })->name('owner.pasien');
@@ -96,17 +65,12 @@ Route::prefix('owner')->group(function () {
         return view('layouts.owner.detail_pasien');
     })->name('owner.pasien.detail');
 
-    Route::get('/treatment', function () {
-        return view('layouts.owner.treatment');
-    })->name('owner.treatment');
-
-    Route::get('/treatment/add', function () {
-        return view('layouts.owner.add_treatment');
-    })->name('owner.treatment.add');
-
-    Route::get('/treatment/edit', function () {
-    return view('layouts.owner.edit_treatment');
-    })->name('owner.treatment.edit');
+    Route::get('/treatment', [TreatmentController::class, 'index'])->name('owner.treatment');
+    Route::get('/treatment/create', [TreatmentController::class, 'create'])->name('owner.treatment.add');
+    Route::post('/treatment', [TreatmentController::class, 'store'])->name('owner.treatment.store');
+    Route::get('/treatment/{id}/edit', [TreatmentController::class, 'edit'])->name('owner.treatment.edit');
+    Route::put('/treatment/{id}', [TreatmentController::class, 'update'])->name('owner.treatment.update');
+    Route::delete('/treatment/{id}', [TreatmentController::class, 'destroy'])->name('owner.treatment.destroy');
 
     Route::get('/obat', function () {
     return view('layouts.owner.obat');
