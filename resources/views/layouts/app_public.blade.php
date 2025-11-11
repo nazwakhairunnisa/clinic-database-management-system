@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title', 'Clay Skinthetic')</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
-
 </head>
-<body class="bg-gray-50 text-gray-800">
 
-  {{-- navbar --}}
-  @include('layouts.navbar')
-
-  {{-- konten halaman --}}
-  <main class="pt-[90px]">
+<body class="bg-gray-50 text-gray-800 overflow-x-hidden">
+  <div class="pt-[90px]">
+    @include('layouts.navbar')
+    <main>
       @yield('content')
-  </main>
+    </main>
+  </div>
+
+@if (!in_array(Route::currentRouteName(), ['treatment.all', 'allpromo']))
+  @include('components.footer')
+@endif
 
 </body>
 </html>
