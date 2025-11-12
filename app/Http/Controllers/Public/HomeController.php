@@ -18,7 +18,7 @@ class HomeController extends Controller
             ->take(2)
             ->get();
 
-        return view('home', compact('treatments', 'promos'));
+        return view('landing', compact('treatments', 'promos'));
     }
 
     public function about()
