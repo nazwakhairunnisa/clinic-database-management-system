@@ -37,44 +37,93 @@ py-28 md:py-10">
   <div class="flex flex-col md:flex-row justify-between items-center 
   w-full max-w-6xl text-center space-y-24 md:space-y-0 md:gap-14 px-6">
 
-    <!-- Total Treatment -->
-    <div class="flex flex-col items-center gap-3 md:gap-3">
-      <h3 class="font-abril font-bold text-7xl md:text-6xl text-[#806B3F]">29</h3>
-      <p class="text-3xl md:text-xl text-black">Total Treatment</p>
-    </div>
+ {{-- Total Treatment --}}
+        <div class="flex flex-col items-center gap-2 transition-all duration-700 opacity-0 translate-y-5">
+          <h3 class="countup font-abril font-bold text-7xl md:text-6xl text-[#806B3F]" data-end="29">0</h3>
+          <p class="text-2xl md:text-xl text-black">Total Treatment</p>
+        </div>
 
-    <!-- Garis pembatas -->
-    <div class="hidden md:flex relative items-center justify-center">
-      <div class="absolute w-[2px] h-[130px] bg-[#4B4B4B]"></div>
-    </div>
+      <!-- Garis pembatas --> 
+      <div class="hidden md:flex relative items-center justify-center"> 
+        <div class="absolute w-[2px] h-[130px] bg-[#806B3F]"></div> 
+      </div>
 
-    <!-- Patients -->
-    <div class="flex flex-col items-center gap-3 md:gap-3">
-      <h3 class="font-abril font-bold text-7xl md:text-6xl text-[#806B3F]">100+</h3>
-      <p class="text-2xl md:text-xl text-black">Patients</p>
-    </div>
+        {{-- Patients --}}
+        <div class="flex flex-col items-center gap-2 transition-all duration-700 opacity-0 translate-y-5">
+          <h3 class="countup font-abril font-bold text-7xl md:text-6xl text-[#806B3F]" data-end="100" data-suffix="+">0</h3>
+          <p class="text-2xl md:text-xl text-black">Patients</p>
+        </div>
 
-    <!-- Garis pembatas -->
-    <div class="hidden md:flex relative items-center justify-center">
-      <div class="absolute w-[2px] h-[130px] bg-[#4B4B4B]"></div>
-    </div>
+      <!-- Garis pembatas --> 
+      <div class="hidden md:flex relative items-center justify-center"> 
+        <div class="absolute w-[2px] h-[130px] bg-[#806B3F]"></div> 
+      </div>
 
-    <!-- Certificate -->
-    <div class="flex flex-col items-center gap-3 md:gap-3">
-      <h3 class="font-abril font-bold text-8xl md:text-6xl text-[#806B3F]">11</h3>
-      <p class="text-2xl md:text-xl text-black">Certificate</p>
-    </div>
+        {{-- Certificate --}}
+        <div class="flex flex-col items-center gap-2 transition-all duration-700 opacity-0 translate-y-5">
+          <h3 class="countup font-abril font-bold text-7xl md:text-6xl text-[#806B3F]" data-end="11">0</h3>
+          <p class="text-2xl md:text-xl text-black">Certificate</p>
+        </div>
 
-    <!-- Garis pembatas -->
-    <div class="hidden md:flex relative items-center justify-center">
-      <div class="absolute w-[2px] h-[130px] bg-[#4B4B4B]"></div>
-    </div>
+      <!-- Garis pembatas --> 
+      <div class="hidden md:flex relative items-center justify-center"> 
+        <div class="absolute w-[2px] h-[130px] bg-[#806B3F]"></div> 
+      </div>
 
-    <!-- Years of Experience -->
-    <div class="flex flex-col items-center gap-3 md:gap-3">
-      <h3 class="font-abril font-bold text-7xl md:text-6xl text-[#806B3F]">3+</h3>
-      <p class="text-2xl md:text-xl text-black">Years of Experience</p>
+        {{-- Years of Experience --}}
+        <div class="flex flex-col items-center gap-2 transition-all duration-700 opacity-0 translate-y-5">
+          <h3 class="countup font-abril font-bold text-7xl md:text-6xl text-[#806B3F]" data-end="3" data-suffix="+">0</h3>
+          <p class="text-2xl md:text-xl text-black">Years of Experience</p>
+        </div>
+      </div>
     </div>
-
   </div>
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+
+  function animateCount(el){
+    if (el.dataset.animated === "true") return;
+    el.dataset.animated = "true";
+
+    const end = parseFloat(el.dataset.end || "0");
+    const suffix = el.dataset.suffix || "";
+    const decimals = parseInt(el.dataset.decimals || "0", 10);
+    const duration = parseInt(el.dataset.duration || "1500", 10);
+
+    const fmt = new Intl.NumberFormat("id-ID", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals
+    });
+
+    const startTime = performance.now();
+    function tick(now){
+      const t = Math.min((now - startTime) / duration, 1);
+      const value = end * easeOutCubic(t);
+      el.textContent = (decimals ? value : Math.floor(value)).toLocaleString("id-ID") + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = fmt.format(end) + suffix;
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const counters = document.querySelectorAll(".countup");
+  const cards = document.querySelectorAll(".flex.flex-col.items-center.gap-2.transition-all");
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        el.classList.remove("opacity-0", "translate-y-5"); // fade-in naik halus
+        const count = el.querySelector(".countup");
+        if (count) animateCount(count);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  cards.forEach(el => io.observe(el));
+});
+</script>
