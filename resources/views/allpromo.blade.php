@@ -6,7 +6,7 @@
 
     {{-- Judul --}}
     <div class="flex flex-col items-center mb-10">
-      <h2 class="text-6xl font-serif font-semibold text-[#806B3F] tracking-wide text-center">
+      <h2 class="text-7xl font-abril font-semibold text-[#806B3F] tracking-wide text-center">
         Promo
       </h2>
     </div>
