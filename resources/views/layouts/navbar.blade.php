@@ -23,7 +23,7 @@
 
     {{-- BUTTON SIGN UP (desktop) --}}
     <div class="hidden md:block">
-      <a href="#"
+      <a href="{{ route('register') }}"
          class="border border-[#806B3F] bg-[#FBF7E7] text-[#806B3F] font-abril font-semibold
                 text-[22px] px-10 py-3 rounded-lg hover:bg-[#806B3F] hover:text-white
                 transition-all duration-200">
@@ -48,7 +48,7 @@
     <a href="{{ url('/') }}#treatment" class="px-5 py-2 rounded-xl hover:bg-[#FBF7E7]/80 transition-all duration-300">Treatment</a>
     <a href="{{ url('/') }}#promo" class="px-5 py-2 rounded-xl hover:bg-[#FBF7E7]/80 transition-all duration-300">Promo</a>
     <a href="{{ url('/') }}#contact" class="px-5 py-2 rounded-xl hover:bg-[#FBF7E7]/80 transition-all duration-300">Contact</a>
-    <a href="#"
+    <a href="{{ route('register') }}"
       class="border border-[#806B3F] text-[#806B3F] px-6 py-2 rounded-lg bg-[#FBF7E7] font-abril font-semibold
               hover:bg-[#806B3F] hover:text-white transition-all duration-200">
       Sign Up
