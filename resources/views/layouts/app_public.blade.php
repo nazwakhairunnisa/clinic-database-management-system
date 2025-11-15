@@ -8,16 +8,28 @@
 </head>
 
 <body class="bg-gray-50 text-gray-800 overflow-x-hidden">
+
+{{-- PAKSA NAVBAR LOGIN UNTUK TEST --}}
+@include('layouts.navbar-auth')
+
+
+  {{-- Jarak agar konten tidak tertutup navbar fixed --}}
   <div class="pt-[90px]">
-    @include('layouts.navbar')
+
     <main>
       @yield('content')
     </main>
+
   </div>
 
-@if (!in_array(Route::currentRouteName(), ['treatment.all', 'allpromo']))
-  @include('components.footer')
+@if (!in_array(Route::currentRouteName(), [
+    'treatment.all',
+    'allpromo',
+    'reservation'
+]))
+    @include('components.footer')
 @endif
+
 
 </body>
 </html>
