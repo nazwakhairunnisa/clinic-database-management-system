@@ -9,8 +9,10 @@
 
 <body class="bg-gray-50 text-gray-800 overflow-x-hidden">
 
-{{-- PAKSA NAVBAR LOGIN UNTUK TEST --}}
-@include('layouts.navbar-auth')
+@if (!request()->routeIs('profile.edit'))
+    @include('layouts.navbar-auth')
+@endif
+
 
 
   {{-- Jarak agar konten tidak tertutup navbar fixed --}}
