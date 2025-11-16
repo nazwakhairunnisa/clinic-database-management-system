@@ -41,6 +41,27 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/data-pasien', function () {
+    return view('data');
+})->middleware('auth')->name('patient.data');
+
+Route::get('/navbar-auth', function () {
+    return view('layouts.navbar-auth');
+});
+
+Route::get('/reservation', function () {
+    return view('reservation');
+})->name('reservation');
+
+
+Route::get('/reservation', [ReservationController::class, 'create'])->name('reservation');
+
+Route::middleware(['auth', 'role:patient'])->group(function () {
+    Route::get('/reservasi', [ReservationController::class, 'create'])->name('reservasi.create');
+});
+
+
+
 Route::prefix('owner')->group(function () {
     Route::get('/dashboard', function () {
         return view('layouts.owner.dashboard_owner');
