@@ -35,7 +35,7 @@
 
         {{-- PROFILE ICON --}}
         <div class="hidden md:block">
-            <a href="{{ route('profile.edit') }}">
+            <a href="{{ route('profile.show') }}">
                 <img src="{{ asset('images/profile.png') }}"
                      class="h-[60px] w-[60px] object-contain scale-125 p-1 hover:opacity-70 transition">
             </a>
@@ -64,7 +64,7 @@
 
         <a href="{{ route('reservation') }}" class="px-5 py-2 rounded-xl hover:bg-[#FBF7E7]/80 transition-all duration-300">Reservations</a>
 
-        <a href="{{ route('profile.edit') }}" class="px-5 py-2 rounded-xl hover:bg-[#FBF7E7]/80 transition-all duration-300">Profile</a>
+        <a href="{{ route('profile.show') }}" class="px-5 py-2 rounded-xl hover:bg-[#FBF7E7]/80 transition-all duration-300">Profile</a>
 
     </div>
 </nav>
