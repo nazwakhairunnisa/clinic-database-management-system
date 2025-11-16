@@ -127,7 +127,7 @@
             <i class="fas fa-chevron-down text-sm"></i>
           </div>
           <ul class="ml-6 mt-1 space-y-1 text-sm text-gray-700 submenu hidden">
-            <li><a href="{{ route('owner.obat') }}" class="block hover:text-[#8B6B3F]">Daftar Obat</a></li>
+            <li><a href="{{ route('owner.stok-obat') }}" class="block hover:text-[#8B6B3F]">Daftar Obat</a></li>
           </ul>
         </li>
 

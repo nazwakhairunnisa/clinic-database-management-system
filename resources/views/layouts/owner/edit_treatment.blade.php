@@ -17,6 +17,17 @@
             </a>
         </div>
 
+        @if ($errors->any())
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-4">
+                <strong>Whoops!</strong> Ada masalah dengan input kamu:<br><br>
+                <ul class="list-disc list-inside">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{-- Form Edit --}}
         <form action="{{ route('owner.treatment.update', $treatment->id_treatment) }}" method="POST" enctype="multipart/form-data" class="space-y-5">
             @csrf
@@ -44,6 +55,16 @@
                 </div>
             </div>
 
+            {{-- Durasi --}}
+            <div class="mb-4">
+                <label class="block text-gray-700 font-medium mb-2">Durasi (menit) <span class="text-red-500">*</span></label>
+                <input type="number" name="durasi" value="{{ old('durasi', $treatment->durasi) }}" min="1"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-[#EED892] focus:outline-none @error('durasi') border-red-500 @enderror">
+                @error('durasi')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
             {{-- Deskripsi --}}
             <div>
                 <label class="text-sm font-medium text-gray-600">Deskripsi</label>
@@ -59,26 +80,24 @@
                 <label class="text-sm font-medium text-gray-600">Upload Image</label>
 
                 @if($treatment->foto_treatment)
-                    <div class="mt-2 mb-3">
-                        <img src="{{ $treatment->foto_url }}" alt="Current" class="w-40 h-40 object-cover rounded-lg border">
-                        <p class="text-xs text-gray-500 mt-1">Foto saat ini</p>
-                    </div>
-                @endif
-
-                <div class="border border-gray-300 rounded-lg px-3 py-2 bg-gray-50">
-                    <input type="file" name="foto_treatment" accept=".png,.jpg,.jpeg,.webp,.svg"
-                        class="w-full text-sm text-gray-600 file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-[#EED892] file:text-[#4A3B1C] hover:file:bg-[#EBDDAF] transition-all duration-200 @error('foto_treatment') border-red-500 @enderror"
-                        onchange="previewImage(event)">
+                <div class="mb-3" id="currentImage">
+                    <img src="{{ $treatment->foto_url }}" alt="Current" class="w-48 h-48 object-cover rounded-lg border">
+                    <p class="text-sm text-gray-500 mt-1">Foto saat ini</p>
                 </div>
-                <p class="text-xs text-gray-500 mt-1">PNG, JPG, WEBP, SVG — Max 2MB<br>Biarkan kosong jika tidak ingin mengubah foto</p>
+                @endif
+                
+                <input type="file" name="foto_treatment" accept="image/*" id="fotoInput"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-[#EED892] focus:outline-none @error('foto_treatment') border-red-500 @enderror"
+                    onchange="previewImage(event)">
+                <p class="text-sm text-gray-500 mt-1">Biarkan kosong jika tidak ingin mengubah foto</p>
                 @error('foto_treatment')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
-
-                {{-- Preview Gambar Baru --}}
+                
+                {{-- Image Preview untuk foto BARU --}}
                 <div id="imagePreview" class="mt-3 hidden">
-                    <p class="text-sm font-medium mb-1">Preview foto baru:</p>
-                    <img id="preview" class="w-40 h-40 object-cover rounded-lg border">
+                    <p class="text-sm font-medium mb-2 text-green-600">Preview foto baru:</p>
+                    <img id="preview" class="w-48 h-48 object-cover rounded-lg border">
                 </div>
             </div>
 

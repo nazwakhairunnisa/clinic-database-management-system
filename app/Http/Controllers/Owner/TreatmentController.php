@@ -89,27 +89,38 @@ class TreatmentController extends Controller
         $treatment = Treatment::findOrFail($id);
 
         $validated = $request->validate([
-            'nama_treatment' => 'required|string|max:255|unique:treatment,nama_treatment,' . $id . ',id_treatment',
-            'deskripsi' => 'nullable|string',
-            'harga' => 'required|numeric|min:0',
-            'durasi' => 'required|integer|min:1',
-            'foto_treatment' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        'nama_treatment' => 'required|string|max:255|unique:treatment,nama_treatment,' . $id . ',id_treatment',
+        'deskripsi' => 'nullable|string',
+        'harga' => 'required|numeric|min:0',
+        'durasi' => 'required|integer|min:1',
+        'foto_treatment' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ], [
             'nama_treatment.required' => 'Nama treatment wajib diisi',
             'nama_treatment.unique' => 'Nama treatment sudah ada',
             'harga.required' => 'Harga wajib diisi',
+            'harga.numeric' => 'Harga harus berupa angka',
+            'harga.min' => 'Harga tidak boleh negatif',
             'durasi.required' => 'Durasi wajib diisi',
+            'durasi.integer' => 'Durasi harus berupa angka',
+            'durasi.min' => 'Durasi minimal 1 menit',
+            'foto_treatment.image' => 'File harus berupa gambar',
+            'foto_treatment.mimes' => 'Format gambar harus jpeg, png, atau jpg',
+            'foto_treatment.max' => 'Ukuran gambar maksimal 2MB',
         ]);
 
-        // Handle file upload
+        // Handle file upload HANYA jika ada file baru yang di-upload
         if ($request->hasFile('foto_treatment')) {
-            // Delete old image
-            if ($treatment->foto_treatment) {
+            // Delete old image jika ada
+            if ($treatment->foto_treatment && Storage::disk('public')->exists($treatment->foto_treatment)) {
                 Storage::disk('public')->delete($treatment->foto_treatment);
             }
             
-            $validated['foto_treatment'] = $request->file('foto_treatment')
-                ->store('treatments', 'public');
+            // Upload gambar baru
+            $validated['foto_treatment'] = $request->file('foto_treatment')->store('treatments', 'public');
+        } else {
+            // Jika tidak upload gambar baru, hapus dari array validated
+            // Agar tidak overwrite gambar lama dengan null
+            unset($validated['foto_treatment']);
         }
 
         $treatment->update($validated);

@@ -6,6 +6,8 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PatientRegisterController;
 use App\Http\Controllers\PatientLoginController;
 use App\Http\Controllers\Owner\TreatmentController;
+use App\Http\Controllers\Owner\PembelianObatController;
+use App\Http\Controllers\Owner\StokObatController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -72,17 +74,21 @@ Route::prefix('owner')->group(function () {
     Route::put('/treatment/{id}', [TreatmentController::class, 'update'])->name('owner.treatment.update');
     Route::delete('/treatment/{id}', [TreatmentController::class, 'destroy'])->name('owner.treatment.destroy');
 
-    Route::get('/obat', function () {
-    return view('layouts.owner.obat');
-    })->name('owner.obat');
+    // === STOK OBAT (Master Data) ===
+    Route::get('/stok-obat', [StokObatController::class, 'index'])->name('owner.stok-obat');
+    Route::get('/stok-obat/create', [StokObatController::class, 'create'])->name('owner.stok-obat.add');
+    Route::post('/stok-obat', [StokObatController::class, 'store'])->name('owner.stok-obat.store');
+    Route::get('/stok-obat/{id}/edit', [StokObatController::class, 'edit'])->name('owner.stok-obat.edit');
+    Route::put('/stok-obat/{id}', [StokObatController::class, 'update'])->name('owner.stok-obat.update');
+    Route::delete('/stok-obat/{id}', [StokObatController::class, 'destroy'])->name('owner.stok-obat.destroy');
 
-    Route::get('/obat/add', function () {
-    return view('layouts.owner.add_obat');
-    })->name('owner.obat.add');
-
-    Route::get('/obat/edit', function () {
-        return view('layouts.owner.edit_obat');
-    })->name('owner.obat.edit');
+    // === PEMBELIAN OBAT (Transaksi) ===
+    Route::get('/pembelian-obat', [PembelianObatController::class, 'index'])->name('owner.pembelian-obat');
+    Route::get('/pembelian-obat/create', [PembelianObatController::class, 'create'])->name('owner.pembelian-obat.add');
+    Route::post('/pembelian-obat', [PembelianObatController::class, 'store'])->name('owner.pembelian-obat.store');
+    Route::get('/pembelian-obat/{id}/edit', [PembelianObatController::class, 'edit'])->name('owner.pembelian-obat.edit');
+    Route::put('/pembelian-obat/{id}', [PembelianObatController::class, 'update'])->name('owner.pembelian-obat.update');
+    Route::delete('/pembelian-obat/{id}', [PembelianObatController::class, 'destroy'])->name('owner.pembelian-obat.destroy');
 
     Route::get('/pengeluaran', function () {
     return view('layouts.owner.pengeluaran');
@@ -97,8 +103,6 @@ Route::prefix('owner')->group(function () {
     })->name('owner.laporan.penjualan');
 
 });
-
-
 
 
 Route::prefix('admin')->group(function () {
