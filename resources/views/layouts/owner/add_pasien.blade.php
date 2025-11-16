@@ -1,18 +1,17 @@
 @extends('layouts.owner.app')
 
-@section('pageTitle', 'Add Patient')
+@section('pageTitle', 'Daftar Pasien')
 
 @section('content')
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-<div class="font-['Roboto',sans-serif] bg-gray-100 min-h-screen flex justify-center items-start pt-8 sm:pt-12">
+<div class="font-['Roboto'] bg-[#F8F6F1] min-h-screen flex justify-center items-start pt-8 sm:pt-12">
     <div class="bg-white rounded-2xl shadow-lg w-full max-w-3xl p-6 sm:p-8 transition-all duration-300">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-lg sm:text-xl font-semibold text-[#806B3F]">Add Patient</h2>
+            <h2 class="text-lg sm:text-xl font-semibold text-black">Add Patient</h2>
             <a href="{{ route('owner.pasien') }}" class="text-gray-400 hover:text-gray-600 transition">
     <i class="fa-solid fa-xmark text-xl"></i>
 </a>
-
         </div>
 
         <form class="space-y-5">
@@ -82,7 +81,8 @@
 
             {{-- Submit --}}
             <div class="pt-2">
-                <button type="submit" class="bg-[#2F9CCA] text-white px-6 py-2 rounded-lg hover:bg-[#A18F5E] transition-all duration-200">
+                <button type="submit" 
+                    class="bg-[#2F9CCA] text-white px-6 py-2 rounded-lg hover:bg-[#1788b4] transition-all duration-200">
                     Add
                 </button>
             </div>

@@ -20,22 +20,27 @@
                 <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-500"></i>
             </div>
 
-            {{-- Buttons di kanan --}}
-            <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
+    
+                {{-- Buttons --}}
+            <div class="flex space-x-2 sm:space-x-3 shrink-0">
+
                 {{-- Export --}}
                 <button
-                    class="flex items-center justify-center bg-[#806B3F] text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-[#A18F5E] transition-all duration-300 text-sm shadow-sm hover:shadow-md">
-                    <i class="fa-solid fa-file-export text-base sm:mr-2"></i>
+                    class="flex items-center justify-center bg-[#806B3F] text-white px-3 sm:px-4 py-2 rounded-full
+                    hover:bg-[#A18F5E] transition-all duration-300 text-sm shadow-sm hover:shadow-md">
+                    
+                    <iconify-icon icon="bx:export" class="text-xl sm:mr-2"></iconify-icon>
                     <span class="hidden sm:inline">Export</span>
                 </button>
 
-                {{-- Add Obat --}}
-        
-            <a href="{{ route('owner.obat.add') }}"
-                class="flex items-center justify-center bg-[#806B3F] text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-[#A18F5E] transition-all duration-300 text-sm shadow-sm hover:shadow-md">
-                <i class="fa-solid fa-plus text-base sm:mr-2"></i>
-                <span class="hidden sm:inline">Add Obat</span>
-            </a>
+                {{-- Add Patient --}}
+                <a href="{{ route('owner.obat.add') }}"     
+                    class="flex items-center justify-center bg-[#806B3F] text-white px-3 sm:px-4 py-2 rounded-full
+                    hover:bg-[#A18F5E] transition-all duration-300 text-sm shadow-sm hover:shadow-md">
+                    
+                    <iconify-icon icon="material-symbols:add-rounded" class="text-xl sm:mr-2"></iconify-icon>
+                    <span class="hidden sm:inline">Add Obat</span>
+                </a>
             </div>
         </div>
     </div>
@@ -44,16 +49,17 @@
     <div class="bg-white rounded-2xl shadow p-4 sm:p-6 overflow-x-auto transition-all duration-300">
         <table class="min-w-[800px] w-full text-sm text-left border-collapse">
             <thead>
-                <tr class="bg-gray-100/60 text-gray-700 font-normal">
-                    <th class="px-4 py-3 rounded-l-lg border-b border-gray-300">No</th>
-                    <th class="px-4 py-3 border-b border-gray-300">Name</th>
-                    <th class="px-4 py-3 border-b border-gray-300">Harga</th>
-                    <th class="px-4 py-3 border-b border-gray-300">Supplier</th>
-                    <th class="px-4 py-3 border-b border-gray-300">Status</th>
-                    <th class="px-4 py-3 border-b border-gray-300">Jatuh Tempo</th>
-                    <th class="px-4 py-3 rounded-r-lg border-b border-gray-300">Action</th>
-                </tr>
-            </thead>
+    <tr class="bg-gray-100/60 text-gray-700">
+        <th class="px-4 py-3 rounded-l-lg border-b border-gray-300 font-light">No</th>
+        <th class="px-4 py-3 border-b border-gray-300 font-light">Name</th>
+        <th class="px-4 py-3 border-b border-gray-300 font-light">Harga</th>
+        <th class="px-4 py-3 border-b border-gray-300 font-light">Supplier</th>
+        <th class="px-4 py-3 border-b border-gray-300 font-light">Status</th>
+        <th class="px-4 py-3 border-b border-gray-300 font-light">Jatuh Tempo</th>
+        <th class="px-4 py-3 rounded-r-lg border-b border-gray-300 font-light">Action</th>
+    </tr>
+</thead>
+
 
             <tbody class="text-gray-700">
                 @foreach([
@@ -78,20 +84,25 @@
                     </td>
                     <td class="px-4 py-3">{{ $row['tempo'] }}</td>
 
-                    {{-- Action --}}
-                    <td class="px-4 py-3 flex space-x-3">
-                        {{-- Edit --}}
-                        <td class="px-4 py-3 flex space-x-3">
-    <a href="{{ route('owner.obat.edit') }}" class="text-gray-700 hover:text-black transition-all duration-200">
-        <i class="fa-solid fa-pen"></i>
+                    {{-- ACTION --}}
+<td class="px-4 py-3 flex space-x-3">
+
+    {{-- EDIT --}}
+    <a href="{{ route('owner.obat.edit') }}" 
+       class="text-gray-700 hover:text-black transition-all duration-200"
+       title="Edit">
+        <iconify-icon icon="mingcute:edit-line" class="text-lg"></iconify-icon>
     </a>
 
-    {{-- Delete --}}
-    <button class="text-gray-700 hover:text-black transition-all duration-200"
-        onclick="confirm('Apakah kamu yakin ingin menghapus data obat ini?')">
-        <i class="fa-solid fa-trash"></i>
+    {{-- DELETE --}}
+    <button 
+        class="text-gray-700 hover:text-red-600 transition-all duration-200"
+        onclick="return confirm('Apakah kamu yakin ingin menghapus data ini?')">
+        <iconify-icon icon="material-symbols:delete-outline" class="text-lg"></iconify-icon>
     </button>
+
 </td>
+
 
                 </tr>
                 @endforeach

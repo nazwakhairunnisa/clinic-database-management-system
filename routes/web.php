@@ -88,13 +88,56 @@ Route::prefix('owner')->group(function () {
     return view('layouts.owner.pengeluaran');
     })->name('owner.pengeluaran');
 
+    Route::get('/pengeluaran/edit', function () {
+    return view('layouts.owner.edit_pengeluaran');
+    })->name('owner.pengeluaran.edit');
+
+    // Halaman tambah pengeluaran
+    Route::get('/pengeluaran/add', function () {
+        return view('layouts.owner.add_pengeluaran');
+    })->name('owner.pengeluaran.add');
+
     Route::get('/pendapatan', function () {
     return view('layouts.owner.pendapatan');
     })->name('owner.pendapatan');
 
+    Route::get('/pendapatan/add', function () {
+    return view('layouts.owner.add_pendapatan');
+    })->name('owner.pendapatan.add');
+
+    Route::get('/pendapatan/edit', function () {
+    return view('layouts.owner.edit_pendapatan');
+    })->name('owner.pendapatan.edit');
+
     Route::get('/laporan-penjualan', function () {
     return view('layouts.owner.laporan_penjualan');
     })->name('owner.laporan.penjualan');
+
+    Route::get('/promo', function () {
+    return view('layouts.owner.promo');
+    })->name('owner.promo');
+
+     Route::get('/promo/add', function () {
+    return view('layouts.owner.add_promo');
+    })->name('owner.promo.add');
+
+    Route::get('/promo/edit', function () {
+    return view('layouts.owner.edit_promo');
+    })->name('owner.promo.edit');
+
+    Route::get('/inventori/pembelian-obat', function () {
+    return view('layouts.owner.pembelian_obat');
+    })->name('owner.pembelian_obat');
+
+    Route::get('/inventori/pembelian-obat/add', function () {
+        return view('layouts.owner.add_pembelian_obat');
+    })->name('owner.pembelian_obat.add');
+
+    Route::get('/inventori/pembelian-obat/edit', function () {
+        return view('layouts.owner.edit_pembelian_obat');
+    })->name('owner.pembelian_obat.edit');
+
+
 
 });
 
