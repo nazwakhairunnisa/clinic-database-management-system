@@ -33,11 +33,39 @@ Route::middleware(['auth', 'role:patient'])->group(function () {
     Route::get('/reservasi/saya', [ReservationController::class, 'myReservations'])->name('reservasi.my');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
+
+Route::get('/data-pasien', function () {
+    return view('data');
+})->middleware('auth')->name('patient.data');
+
+Route::get('/navbar-auth', function () {
+    return view('layouts.navbar-auth');
 });
+
+Route::get('/reservation', function () {
+    return view('reservation');
+})->name('reservation');
+
+Route::get('/profile', function () {
+    return view('profile.show');
+})->name('profile.show');
+
+Route::get('/profile/edit', function () {
+    return view('profile.edit');
+})->name('profile.edit');
+
+
+Route::get('/reservation', [ReservationController::class, 'create'])->name('reservation');
+
+Route::middleware(['auth', 'role:patient'])->group(function () {
+    Route::get('/reservasi', [ReservationController::class, 'create'])->name('reservasi.create');
+});
+
 
 Route::prefix('owner')->group(function () {
     Route::get('/dashboard', function () {
@@ -151,4 +179,4 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->name('admin.dashboard');
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';

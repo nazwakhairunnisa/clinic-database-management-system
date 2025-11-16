@@ -8,16 +8,30 @@
 </head>
 
 <body class="bg-gray-50 text-gray-800 overflow-x-hidden">
+
+@if (!request()->routeIs('profile.edit'))
+    @include('layouts.navbar-auth')
+@endif
+
+
+
+  {{-- Jarak agar konten tidak tertutup navbar fixed --}}
   <div class="pt-[90px]">
-    @include('layouts.navbar')
+
     <main>
       @yield('content')
     </main>
+
   </div>
 
-@if (!in_array(Route::currentRouteName(), ['treatment.all', 'allpromo']))
-  @include('components.footer')
+@if (!in_array(Route::currentRouteName(), [
+    'treatment.all',
+    'allpromo',
+    'reservation'
+]))
+    @include('components.footer')
 @endif
+
 
 </body>
 </html>
