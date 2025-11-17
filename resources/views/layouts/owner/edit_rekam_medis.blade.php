@@ -1,15 +1,15 @@
 @extends('layouts.owner.app')
 
-@section('pageTitle', 'Edit Rekam Medis')
+@section('pageTitle', 'Daftar Pasien')
 
 @section('content')
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-<div class="font-['Roboto',sans-serif] bg-gray-100 min-h-screen flex justify-center items-start pt-10 sm:pt-14">
+<div class="font-['Roboto'] bg-[#F8F6F1] min-h-screen flex justify-center items-start pt-8 sm:pt-12">
     <div class="bg-white rounded-2xl shadow-lg w-full max-w-4xl p-6 sm:p-8 transition-all duration-300">
         {{-- Header --}}
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-lg sm:text-xl font-semibold text-[#806B3F]">Edit Rekam Medis Patient</h2>
+            <h2 class="text-lg sm:text-xl font-semibold text-black">Edit Rekam Medis Patient</h2>
             <a href="{{ route('owner.pasien') }}" class="text-gray-400 hover:text-gray-600 transition">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </a>
@@ -23,7 +23,7 @@
                 <div class="flex flex-wrap gap-4 mt-2">
                     @foreach(['Normal','Dry','Oily','Sensitive','Kombinasi'] as $jenis)
                         <label class="flex items-center space-x-2">
-                            <input type="radio" name="jenis_kulit" class="text-[#806B3F] focus:ring-[#EED892]">
+                            <input type="radio" name="jenis_kulit" class="text-[#0073d9] focus:ring-[#EED892]">
                             <span>{{ $jenis }}</span>
                         </label>
                     @endforeach
@@ -36,7 +36,7 @@
                 <div class="flex flex-wrap gap-4 mt-2">
                     @foreach(['Baik','Cukup','Kurang'] as $kelembapan)
                         <label class="flex items-center space-x-2">
-                            <input type="radio" name="kelembapan" class="text-[#806B3F] focus:ring-[#EED892]">
+                            <input type="radio" name="kelembapan" class="text-[#0073d9] focus:ring-[#EED892]">
                             <span>{{ $kelembapan }}</span>
                         </label>
                     @endforeach
@@ -49,11 +49,11 @@
                     <label class="font-medium text-gray-700">{{ $bagian }}</label>
                     <div class="flex flex-wrap items-center gap-2 mt-2">
                         <label class="flex items-center space-x-2">
-                            <input type="radio" name="{{ strtolower($bagian) }}" class="text-[#806B3F] focus:ring-[#EED892]">
+                            <input type="radio" name="{{ strtolower($bagian) }}" class="text-[#0073d9] focus:ring-[#EED892]">
                             <span>Ada</span>
                         </label>
                         <label class="flex items-center space-x-2">
-                            <input type="radio" name="{{ strtolower($bagian) }}" class="text-[#806B3F] focus:ring-[#EED892]">
+                            <input type="radio" name="{{ strtolower($bagian) }}" class="text-[#0073d9] focus:ring-[#EED892]">
                             <span>Tidak Ada</span>
                         </label>
 
@@ -65,7 +65,7 @@
                         <span class="ml-2 text-xs text-gray-500">Derajat:</span>
                         @foreach(['Ringan','Sedang','Berat'] as $level)
                             <label class="flex items-center space-x-1">
-                                <input type="radio" name="{{ strtolower($bagian) }}_level" class="text-[#806B3F] focus:ring-[#EED892]">
+                                <input type="radio" name="{{ strtolower($bagian) }}_level" class="text-[#0073D9]focus:ring-[#EED892]">
                                 <span class="text-xs">{{ $level }}</span>
                             </label>
                         @endforeach
@@ -79,7 +79,7 @@
                 <div class="flex flex-wrap gap-4 mt-2">
                     @foreach(['Hamil','Menyusui','Kontrasepsi','Tidak Hamil/Menyusui'] as $kondisi)
                         <label class="flex items-center space-x-2">
-                            <input type="checkbox" class="text-[#806B3F] focus:ring-[#EED892]">
+                            <input type="checkbox" class="text-0073D9focus:ring-[#EED892]">
                             <span>{{ $kondisi }}</span>
                         </label>
                     @endforeach
