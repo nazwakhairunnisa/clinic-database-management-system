@@ -35,11 +35,11 @@ Route::middleware(['auth', 'role:patient'])->group(function () {
     Route::get('/reservasi/saya', [ReservationController::class, 'myReservations'])->name('reservasi.my');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 Route::get('/data-pasien', function () {
     return view('data');
@@ -53,13 +53,20 @@ Route::get('/reservation', function () {
     return view('reservation');
 })->name('reservation');
 
+Route::get('/profile', function () {
+    return view('profile.show');
+})->name('profile.show');
+
+Route::get('/profile/edit', function () {
+    return view('profile.edit');
+})->name('profile.edit');
+
 
 Route::get('/reservation', [ReservationController::class, 'create'])->name('reservation');
 
 Route::middleware(['auth', 'role:patient'])->group(function () {
     Route::get('/reservasi', [ReservationController::class, 'create'])->name('reservasi.create');
 });
-
 
 
 Route::prefix('owner')->group(function () {
@@ -115,13 +122,56 @@ Route::prefix('owner')->group(function () {
     return view('layouts.owner.pengeluaran');
     })->name('owner.pengeluaran');
 
+    Route::get('/pengeluaran/edit', function () {
+    return view('layouts.owner.edit_pengeluaran');
+    })->name('owner.pengeluaran.edit');
+
+    // Halaman tambah pengeluaran
+    Route::get('/pengeluaran/add', function () {
+        return view('layouts.owner.add_pengeluaran');
+    })->name('owner.pengeluaran.add');
+
     Route::get('/pendapatan', function () {
     return view('layouts.owner.pendapatan');
     })->name('owner.pendapatan');
 
+    Route::get('/pendapatan/add', function () {
+    return view('layouts.owner.add_pendapatan');
+    })->name('owner.pendapatan.add');
+
+    Route::get('/pendapatan/edit', function () {
+    return view('layouts.owner.edit_pendapatan');
+    })->name('owner.pendapatan.edit');
+
     Route::get('/laporan-penjualan', function () {
     return view('layouts.owner.laporan_penjualan');
     })->name('owner.laporan.penjualan');
+
+    Route::get('/promo', function () {
+    return view('layouts.owner.promo');
+    })->name('owner.promo');
+
+     Route::get('/promo/add', function () {
+    return view('layouts.owner.add_promo');
+    })->name('owner.promo.add');
+
+    Route::get('/promo/edit', function () {
+    return view('layouts.owner.edit_promo');
+    })->name('owner.promo.edit');
+
+    Route::get('/inventori/pembelian-obat', function () {
+    return view('layouts.owner.pembelian_obat');
+    })->name('owner.pembelian_obat');
+
+    Route::get('/inventori/pembelian-obat/add', function () {
+        return view('layouts.owner.add_pembelian_obat');
+    })->name('owner.pembelian_obat.add');
+
+    Route::get('/inventori/pembelian-obat/edit', function () {
+        return view('layouts.owner.edit_pembelian_obat');
+    })->name('owner.pembelian_obat.edit');
+
+
 
 });
 
@@ -133,4 +183,4 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->name('admin.dashboard');
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';

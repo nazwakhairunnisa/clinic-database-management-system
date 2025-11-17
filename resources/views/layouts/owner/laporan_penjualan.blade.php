@@ -1,172 +1,247 @@
-@extends('layouts.owner.app')
+@extends('layouts.owner.app') 
 
 @section('pageTitle', 'Laporan Penjualan')
 
 @section('content')
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-<div class="font-['Roboto',sans-serif]">
+<div class="font-['Roboto',sans-serif] px-4 sm:px-6 lg:px-10 py-6">
 
-    {{-- HEADER --}}
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pt-6">
-        <div class="flex w-full items-center justify-between gap-3">
+    {{-- ========================= --}}
+    {{-- SEARCH + EXPORT --}}
+    {{-- ========================= --}}
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
 
-            {{-- Search Bar --}}
-            <div class="relative flex-grow">
-                <input type="text" placeholder="Search Penjualan"
-                    class="border border-white rounded-full pl-10 pr-4 py-2 w-full sm:w-60 focus:ring-2 focus:ring-[#EED892] focus:outline-none text-sm">
-                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-500"></i>
-            </div>
+        {{-- Search --}}
+        <div class="relative w-full sm:w-72">
+            <input type="text" placeholder="Search Penjualan"
+                class="border border-gray-300 rounded-full pl-10 pr-4 py-2 w-full focus:ring-2 focus:ring-[#EED892] outline-none">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-500"></i>
+        </div>
 
-            {{-- Export Button --}}
+         {{-- Export --}}
             <button
-                class="flex items-center justify-center bg-[#806B3F] text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-[#A18F5E] transition-all duration-300 text-sm shadow-sm hover:shadow-md">
-                <i class="fa-solid fa-file-export text-base sm:mr-2"></i>
-                <span class="hidden sm:inline">Export</span>
+                class="flex items-center justify-center bg-[#806B3F] text-white px-3 sm:px-4 py-2 rounded-full
+                hover:bg-[#A18F5E] transition-all duration-300 text-sm shadow-sm hover:shadow-md">
+
+                <iconify-icon icon="bx:export" class="text-xl mr-2"></iconify-icon>
+                <span class="inline">Export</span>
+
             </button>
+    </div>
+    {{-- ========================= --}}
+    {{-- SUMMARY CARDS --}}
+    {{-- ========================= --}}
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+
+        {{-- CARD 1 --}}
+        <div class="bg-white shadow rounded-xl p-5 border border-gray-200">
+            <div class="flex items-start justify-between">
+
+                <div>
+                    <p class="text-gray-500 text-sm">Total Income</p>
+                    <p class="font-semibold text-xl text-[#0A1A2A]">$125,150</p>
+
+                    {{-- LAST MONTH BOX --}}
+                    <div class="bg-gray-100 rounded-lg px-3 py-2 mt-3 inline-flex items-center gap-1">
+                        <span class="text-green-600 text-sm">↑</span>
+                        <span class="text-green-600 text-sm font-semibold">5.62%</span>
+                        <span class="text-gray-500 text-sm">from last month</span>
+                    </div>
+                </div>
+
+                <img src="{{ asset('images/IconContainer.png') }}" 
+                     class="w-14 h-14 object-contain ml-4">
+            </div>
         </div>
+
+
+        {{-- CARD 2 --}}
+        <div class="bg-white shadow rounded-xl p-5 border border-gray-200">
+            <div class="flex items-start justify-between">
+
+                <div>
+                    <p class="text-gray-500 text-sm">Total Expenses</p>
+                    <p class="font-semibold text-xl text-[#0A1A2A]">$91,800</p>
+
+                    <div class="bg-gray-100 rounded-lg px-3 py-2 mt-3 inline-flex items-center gap-1">
+                        <span class="text-green-600 text-sm">↑</span>
+                        <span class="text-green-600 text-sm font-semibold">11.4%</span>
+                        <span class="text-gray-500 text-sm">from last month</span>
+                    </div>
+                </div>
+
+                <img src="{{ asset('images/IconContainer2.png') }}" 
+                     class="w-14 h-14 object-contain ml-4">
+            </div>
+        </div>
+
+
+        {{-- CARD 3 --}}
+        <div class="bg-white shadow rounded-xl p-5 border border-gray-200">
+            <div class="flex items-start justify-between">
+
+                <div>
+                    <p class="text-gray-500 text-sm">Net Profit</p>
+                    <p class="font-semibold text-xl text-[#0A1A2A]">$91,800</p>
+
+                    <div class="bg-gray-100 rounded-lg px-3 py-2 mt-3 inline-flex items-center gap-1">
+                        <span class="text-green-600 text-sm">↑</span>
+                        <span class="text-green-600 text-sm font-semibold">8.52%</span>
+                        <span class="text-gray-500 text-sm">from last month</span>
+                    </div>
+                </div>
+
+                <img src="{{ asset('images/IconContainer3.png') }}" 
+                     class="w-14 h-14 object-contain ml-4">
+            </div>
+        </div>
+
     </div>
 
-    {{-- DASHBOARD CARDS --}}
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        {{-- Total Income --}}
-        <div class="bg-white rounded-xl shadow p-5 flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-2">
-                <h3 class="text-gray-600 text-sm font-medium">Total Income</h3>
-                <div class="bg-[#3749A7]/10 text-[#3749A7] p-2 rounded-lg">
-                    <i class="fa-solid fa-chart-line"></i>
-                </div>
-            </div>
-            <p class="text-2xl font-bold text-[#3749A7]">$125,150</p>
-            <p class="text-sm text-green-500 mt-1">▲ 5.62% from last month</p>
-        </div>
+        <div class="bg-white rounded-2xl shadow p-4 overflow-x-auto border border-gray-200">
 
-        {{-- Total Expenses --}}
-        <div class="bg-white rounded-xl shadow p-5 flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-2">
-                <h3 class="text-gray-600 text-sm font-medium">Total Expenses</h3>
-                <div class="bg-green-100 text-green-600 p-2 rounded-lg">
-                    <i class="fa-solid fa-wallet"></i>
-                </div>
-            </div>
-            <p class="text-2xl font-bold text-green-600">$91,800</p>
-            <p class="text-sm text-green-500 mt-1">▲ 11.4% from last month</p>
-        </div>
+    <table class="w-full min-w-[900px] text-sm border-collapse">
 
-        {{-- Net Profit --}}
-        <div class="bg-white rounded-xl shadow p-5 flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-2">
-                <h3 class="text-gray-600 text-sm font-medium">Net Profit</h3>
-                <div class="bg-yellow-100 text-yellow-600 p-2 rounded-lg">
-                    <i class="fa-solid fa-coins"></i>
-                </div>
-            </div>
-            <p class="text-2xl font-bold text-yellow-600">$91,800</p>
-            <p class="text-sm text-green-500 mt-1">▲ 8.52% from last month</p>
-        </div>
-    </div>
+        {{-- ========================= --}}
+        {{-- HEADER BULAN --}}
+        {{-- ========================= --}}
+        <thead>
+            <tr>
+                <th class="px-4 py-3 font-semibold text-left"></th>
+                <th class="px-4 py-3 font-semibold text-center">Jan 2025</th>
+                <th class="px-4 py-3 font-semibold text-center">Feb 2025</th>
+                <th class="px-4 py-3 font-semibold text-center">Mar 2025</th>
+                <th class="px-4 py-3 font-semibold text-center">Apr 2025</th>
+                <th class="px-4 py-3 font-semibold text-center">May 2025</th>
+                <th class="px-4 py-3 font-semibold text-center">Total</th>
+            </tr>
+        </thead>
 
-    {{-- TABLE --}}
-    <div class="bg-white rounded-2xl shadow p-4 sm:p-6 overflow-x-auto">
-        <table class="min-w-[800px] w-full text-sm text-left border-collapse">
-            <thead>
-                <tr class="bg-gray-100/60 text-gray-700 font-semibold">
-                    <th class="px-4 py-3">Income</th>
-                    <th class="px-4 py-3">Jan 2025</th>
-                    <th class="px-4 py-3">Feb 2025</th>
-                    <th class="px-4 py-3">Mar 2025</th>
-                    <th class="px-4 py-3">Apr 2025</th>
-                    <th class="px-4 py-3">May 2025</th>
-                    <th class="px-4 py-3">Total</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y text-gray-700">
-                {{-- Income Section --}}
-                <tr class="bg-gray-50">
-                    <td class="px-4 py-3 font-semibold">Consultation Fees</td>
-                    <td class="px-4 py-3">$25,750</td>
-                    <td class="px-4 py-3">$25,750</td>
-                    <td class="px-4 py-3">$25,750</td>
-                    <td class="px-4 py-3">$25,750</td>
-                    <td class="px-4 py-3">$25,750</td>
-                    <td class="px-4 py-3 font-bold">$25,750</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-3 font-semibold">Lab Revenue</td>
-                    <td class="px-4 py-3">$50,125</td>
-                    <td class="px-4 py-3">$50,125</td>
-                    <td class="px-4 py-3">$50,125</td>
-                    <td class="px-4 py-3">$50,125</td>
-                    <td class="px-4 py-3">$50,125</td>
-                    <td class="px-4 py-3 font-bold">$50,125</td>
-                </tr>
+        <tbody class="text-gray-700">
+
+            {{-- ========================= --}}
+            {{-- LABEL INCOME --}}
+            {{-- ========================= --}}
+            <tr>
+                <td colspan="7" class="px-4 py-4 font-bold text-gray-900 text-lg">
+                    Income
+                </td>
+            </tr>
+
+            {{-- Consultation --}}
+            <tr class="border-b">
+                <td class="px-4 py-3">Consultation Fees</td>
+                <td class="px-4 py-3 text-center">$25,750</td>
+                <td class="px-4 py-3 text-center">$25,750</td>
+                <td class="px-4 py-3 text-center">$25,750</td>
+                <td class="px-4 py-3 text-center">$25,750</td>
+                <td class="px-4 py-3 text-center">$25,750</td>
+                <td class="px-4 py-3 text-center font-semibold">$25,750</td>
+            </tr>
+
+            {{-- Lab Revenue --}}
+            <tr class="border-b">
+                <td class="px-4 py-3">Lab Revenue</td>
+                <td class="px-4 py-3 text-center">$50,125</td>
+                <td class="px-4 py-3 text-center">$50,125</td>
+                <td class="px-4 py-3 text-center">$50,125</td>
+                <td class="px-4 py-3 text-center">$50,125</td>
+                <td class="px-4 py-3 text-center">$50,125</td>
+                <td class="px-4 py-3 text-center font-semibold">$50,125</td>
+            </tr>
+
+            {{-- Pharmacy --}}
+            <tr class="border-b">
+                <td class="px-4 py-3">Pharmacy Sales</td>
+                <td class="px-4 py-3 text-center">$75,900</td>
+                <td class="px-4 py-3 text-center">$75,900</td>
+                <td class="px-4 py-3 text-center">$75,900</td>
+                <td class="px-4 py-3 text-center">$75,900</td>
+                <td class="px-4 py-3 text-center">$75,900</td>
+                <td class="px-4 py-3 text-center font-semibold">$75,900</td>
+            </tr>
+
+            {{-- ========================= --}}
+            {{-- GROSS PROFIT --}}
+            {{-- ========================= --}}
+            <tr class="border-b font-semibold">
+                <td class="px-4 py-3">Gross Profit</td>
+                <td class="px-4 py-3 text-center">$151,775</td>
+                <td class="px-4 py-3 text-center">$151,775</td>
+                <td class="px-4 py-3 text-center">$151,775</td>
+                <td class="px-4 py-3 text-center">$151,775</td>
+                <td class="px-4 py-3 text-center">$151,775</td>
+                <td class="px-4 py-3 text-center">$151,775</td>
+            </tr>
+
+            {{-- ========================= --}}
+            {{-- LABEL EXPENSE --}}
+            {{-- ========================= --}}
+            <tr>
+                <td colspan="7" class="px-4 py-4 font-bold text-gray-900 text-lg">
+                    Expense
+                </td>
+            </tr>
+
+    
+
+                {{-- Expenses --}}
                 <tr class="border-b">
-                    <td class="px-4 py-3 font-semibold">Pharmacy Sales</td>
-                    <td class="px-4 py-3">$75,900</td>
-                    <td class="px-4 py-3">$75,900</td>
-                    <td class="px-4 py-3">$75,900</td>
-                    <td class="px-4 py-3">$75,900</td>
-                    <td class="px-4 py-3">$75,900</td>
-                    <td class="px-4 py-3 font-bold">$75,900</td>
-                </tr>
-                <tr class="bg-gray-100 font-bold">
-                    <td class="px-4 py-3">Gross Profit</td>
-                    <td class="px-4 py-3">$151,775</td>
-                    <td class="px-4 py-3">$151,775</td>
-                    <td class="px-4 py-3">$151,775</td>
-                    <td class="px-4 py-3">$151,775</td>
-                    <td class="px-4 py-3">$151,775</td>
-                    <td class="px-4 py-3">$151,775</td>
+                    <td class="px-4 py-3">Doctor Payouts</td>
+                    <td class="px-4 py-3 text-center ">$25,750</td>
+                    <td class="px-4 py-3 text-center">$25,750</td>
+                    <td class="px-4 py-3 text-center">$25,750</td>
+                    <td class="px-4 py-3 text-center">$25,750</td>
+                    <td class="px-4 py-3 text-center">$25,750</td>
+                    <td class="px-4 py-3 text-center font-semibold">$25,750</td>
                 </tr>
 
-                {{-- Expenses Section --}}
-                <tr class="bg-gray-50 font-semibold">
-                    <td class="px-4 py-3">Doctor Payouts</td>
-                    <td class="px-4 py-3">$25,750</td>
-                    <td class="px-4 py-3">$25,750</td>
-                    <td class="px-4 py-3">$25,750</td>
-                    <td class="px-4 py-3">$25,750</td>
-                    <td class="px-4 py-3">$25,750</td>
-                    <td class="px-4 py-3 font-bold">$25,750</td>
+                <tr class="border-b">
+                    <td class="px-4 py-3 ">Staff Salaries</td>
+                    <td class="px-4 py-3 text-center">$50,125</td>
+                    <td class="px-4 py-3 text-center">$50,125</td>
+                    <td class="px-4 py-3 text-center">$50,125</td>
+                    <td class="px-4 py-3 text-center">$50,125</td>
+                    <td class="px-4 py-3 text-center">$50,125</td>
+                    <td class="px-4 py-3 text-center font-semibold">$50,125</td>
                 </tr>
-                <tr>
-                    <td class="px-4 py-3">Staff Salaries</td>
-                    <td class="px-4 py-3">$50,125</td>
-                    <td class="px-4 py-3">$50,125</td>
-                    <td class="px-4 py-3">$50,125</td>
-                    <td class="px-4 py-3">$50,125</td>
-                    <td class="px-4 py-3">$50,125</td>
-                    <td class="px-4 py-3 font-bold">$50,125</td>
-                </tr>
-                <tr>
+
+                <tr class="border-b">
                     <td class="px-4 py-3">Rent & Utilities</td>
-                    <td class="px-4 py-3">$75,900</td>
-                    <td class="px-4 py-3">$75,900</td>
-                    <td class="px-4 py-3">$75,900</td>
-                    <td class="px-4 py-3">$75,900</td>
-                    <td class="px-4 py-3">$75,900</td>
-                    <td class="px-4 py-3 font-bold">$87,650</td>
+                    <td class="px-4 py-3 text-center">$75,900</td>
+                    <td class="px-4 py-3 text-center">$75,900</td>
+                    <td class="px-4 py-3 text-center">$75,900</td>
+                    <td class="px-4 py-3 text-center">$75,900</td>
+                    <td class="px-4 py-3 text-center">$75,900</td>
+                    <td class="px-4 py-3 text-center font-semibold">$87,650</td>
                 </tr>
-                <tr class="bg-gray-100 font-bold">
+
+                {{-- TOTAL EXPENSE --}}
+                <tr class="border-b font-semibold">
                     <td class="px-4 py-3">Total Expense</td>
-                    <td class="px-4 py-3">$99,999</td>
-                    <td class="px-4 py-3">$99,999</td>
-                    <td class="px-4 py-3">$99,999</td>
-                    <td class="px-4 py-3">$99,999</td>
-                    <td class="px-4 py-3">$99,999</td>
-                    <td class="px-4 py-3">$151,775</td>
+                    <td class="px-4 py-3 text-center">$99,999</td>
+                    <td class="px-4 py-3 text-center">$99,999</td>
+                    <td class="px-4 py-3 text-center">$99,999</td>
+                    <td class="px-4 py-3 text-center">$99,999</td>
+                    <td class="px-4 py-3 text-center">$99,999</td>
+                    <td class="px-4 py-3 text-center">$151,775</td>
                 </tr>
-                <tr class="bg-yellow-50 font-bold">
+
+                {{-- NET INCOME --}}
+                <tr class="font-bold bg-white">
                     <td class="px-4 py-3">Net Income</td>
-                    <td class="px-4 py-3">$2,69,276</td>
-                    <td class="px-4 py-3">$2,75,638</td>
-                    <td class="px-4 py-3">$2,51,629</td>
-                    <td class="px-4 py-3">$7,96,543</td>
-                    <td class="px-4 py-3">$2,69,276</td>
-                    <td class="px-4 py-3">$2,75,638</td>
+                    <td class="px-4 py-3 text-center text-black-700">$2,69,276</td>
+                    <td class="px-4 py-3 text-center text-black-700">$2,75,638</td>
+                    <td class="px-4 py-3 text-center text-black-700">$2,51,629</td>
+                    <td class="px-4 py-3 text-center text-black-700">$7,96,543</td>
+                    <td class="px-4 py-3 text-center text-black-700">$2,69,276</td>
+                    <td class="px-4 py-3 text-center text-BLACK-700">$2,75,638</td>
                 </tr>
+
             </tbody>
         </table>
     </div>
+
 </div>
 @endsection
