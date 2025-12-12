@@ -103,7 +103,7 @@
             </div>
         </main>
 
-    </div> {{-- <-- div besar DITUTUP DI SINI --}}
+    </div>
     
     <script>
         const today = new Date();

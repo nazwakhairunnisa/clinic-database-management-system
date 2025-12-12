@@ -36,15 +36,32 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'username' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'user', // Default role untuk registrasi publik
+            'status_akun' => 'aktif',
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Redirect berdasarkan role
+        return $this->redirectBasedOnRole($user);
+    }
+
+    /**
+     * Redirect user berdasarkan role setelah register
+     */
+    protected function redirectBasedOnRole(User $user): RedirectResponse
+    {
+        return match($user->role) {
+            'super admin' => redirect()->route('owner.dashboard'),
+            'dokter' => redirect()->route('owner.dashboard'),
+            'admin' => redirect()->route('admin.dashboard'),
+            'user' => redirect()->route('user.dashboard'),
+            default => redirect('/'),
+        };
     }
 }

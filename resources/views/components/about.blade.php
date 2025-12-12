@@ -8,12 +8,16 @@
           About Us
         </h2>  
 
-        {{-- lorem ipsum bebas kamu atur sendiri padding/ukuran --}}
         <p class="text-[18px] sm:text-[20px] md:text-[25px] text-black leading-normal md:leading-snug max-w-[600px] ml-[20px] md:ml-[2px] md:pl-0">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-          dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          Clayskinthtic adalah klinik kecantikan yang menghadirkan berbagai perawatan kulit 
+          modern dengan hasil yang aman, efektif, dan terpercaya. Didukung oleh dokter serta 
+          terapis berpengalaman, kami menawarkan layanan seperti acne treatment, 
+          brightening, rejuvenation, dan anti-aging yang disesuaikan dengan kebutuhan kulit 
+          Anda. 
+          Dengan penggunaan teknologi terbaru dan produk berkualitas tinggi, Clayskinthtic 
+          berkomitmen membantu Anda mendapatkan kulit yang lebih sehat, cerah, dan 
+          terawat. Kenyamanan, keamanan, dan kepuasan Anda selalu menjadi prioritas 
+          utama kami.
         </p>
       </div>
 

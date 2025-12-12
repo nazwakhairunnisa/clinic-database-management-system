@@ -16,13 +16,46 @@
 
         {{-- LAYER KONTEN --}}
         <div class="relative z-10 min-h-screen flex flex-col items-center md:items-start justify-center px-4 md:px-20">
-
+        
+            {{-- FORM REGISTER --}}
             <h1 class="text-4xl md:text-5xl font-serif font-bold tracking-wide text-[#806B3F] text-center md:text-left mb-6 md:mb-10 md:translate-x-[160px] md:translate-y-[20px]">
                 Sign Up
             </h1>
 
             <div class="w-full max-w-sm md:max-w-md md:w-full md:origin-top-left md:scale-95 md:translate-x-[55px]">
                 <div class="bg-white rounded-lg border border-[#806B3F] shadow-[6px_6px_8px_rgba(0,0,0,0.4)] px-6 py-6 md:px-10 md:py-7">
+
+                    {{-- ERROR MESSAGES --}}
+                    @if(session('error'))
+                        <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-r-lg">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fa-solid fa-circle-exclamation text-red-500 text-xl"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-red-700">{{ session('error') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-r-lg">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fa-solid fa-circle-exclamation text-red-500 text-xl"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-red-800">Terdapat error pada form:</h3>
+                                    <ul class="mt-2 text-sm text-red-700 list-disc list-inside space-y-1">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 
                     <form method="POST" action="{{ route('register') }}" class="space-y-4">
                         @csrf
@@ -31,13 +64,6 @@
                         <div>
                             <x-input-label for="name" :value="__('Username')" class="text-[#806B3F] text-lg" />
                             <x-text-input id="name" type="text" name="name" :value="old('name')" required autofocus
-                                          class="block mt-1 w-full !rounded-3xl border border-gray-300 bg-[#f9efd7] focus:border-[#806B3F] focus:ring-[#806B3F] text-sm" />
-                        </div>
-
-                        {{-- Phone Number --}}
-                        <div>
-                            <x-input-label for="phone" :value="__('Phone Number')" class="text-[#806B3F] text-lg" />
-                            <x-text-input id="phone" type="text" name="phone" :value="old('phone')" required
                                           class="block mt-1 w-full !rounded-3xl border border-gray-300 bg-[#f9efd7] focus:border-[#806B3F] focus:ring-[#806B3F] text-sm" />
                         </div>
 

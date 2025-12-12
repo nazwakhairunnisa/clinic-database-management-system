@@ -26,9 +26,9 @@
         Promo
       </h2>
       <p class="text-black text-[25px] leading-snug max-w-[400px] md:ml-5">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Dapatkan penawaran terbaik untuk perawatan kulit Anda! 
+        Promo spesial dengan harga terjangkau dan hasil maksimal. 
+        Jangan lewatkan kesempatan emas ini untuk tampil lebih percaya diri dengan kulit yang sehat dan bercahaya.
       </p>
     </div>
 
@@ -40,19 +40,54 @@
         View More >>
       </a>
 
-      <div class="overflow-hidden w-full max-w-[300px] md:max-w-[400px] lg:max-w-[450px] mx-auto">
-        <img src="{{ asset('images/promo1.jpg') }}" alt="Promo 1" 
-             class="w-[85%] h-auto object-cover rounded-xl transition-all duration-300 mx-auto">
-        <div class="p-3 text-center">
-          <p class="text-[#8C6B3F] text-3xl font-abril font-light">Available until</p>
-          <p class="text-[#8C6B3F] text-2xl font-abril font-light">October 15 - October 25</p>
+      @if($promos->isNotEmpty())
+        {{-- Promo Pertama --}}
+        @php $firstPromo = $promos->first(); @endphp
+        <div class="overflow-hidden w-full max-w-[300px] md:max-w-[400px] lg:max-w-[450px] mx-auto">
+          @if($firstPromo->gambar_promo)
+            <img src="{{ asset('storage/' . $firstPromo->gambar_promo) }}" 
+                 alt="{{ $firstPromo->nama_promo }}" 
+                 class="w-[85%] h-auto object-cover rounded-xl transition-all duration-300 mx-auto">
+          @else
+            <div class="w-[85%] h-48 bg-gray-200 rounded-xl flex items-center justify-center mx-auto">
+              <span class="text-gray-400">No Image</span>
+            </div>
+          @endif
+          
+          <div class="p-3 text-center">
+            <p class="text-[#8C6B3F] text-2xl font-abril font-semibold mb-1">
+              {{ $firstPromo->nama_promo }}
+            </p>
+            <p class="text-[#8C6B3F] text-xl font-abril font-light">Available until</p>
+            <p class="text-[#8C6B3F] text-lg font-abril font-light">
+              {{ \Carbon\Carbon::parse($firstPromo->periode_mulai)->format('M d') }} - 
+              {{ \Carbon\Carbon::parse($firstPromo->periode_selesai)->format('M d, Y') }}
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div class="overflow-hidden w-full mt-6">
-        <img src="{{ asset('images/promo4.jpg') }}" alt="Promo 2" 
-             class="w-[85%] h-auto object-cover rounded-xl transition-all duration-300 mx-auto">
-      </div>
+        {{-- Promo Kedua (jika ada) --}}
+        @if($promos->count() > 1)
+          @php $secondPromo = $promos->skip(1)->first(); @endphp
+          <div class="overflow-hidden w-full mt-6">
+            @if($secondPromo->gambar_promo)
+              <img src="{{ asset('storage/' . $secondPromo->gambar_promo) }}" 
+                   alt="{{ $secondPromo->nama_promo }}" 
+                   class="w-[85%] h-auto object-cover rounded-xl transition-all duration-300 mx-auto">
+            @else
+              <div class="w-[85%] h-32 bg-gray-200 rounded-xl flex items-center justify-center mx-auto">
+                <span class="text-gray-400">No Image</span>
+              </div>
+            @endif
+          </div>
+        @endif
+      @else
+        {{-- Fallback jika belum ada promo --}}
+        <div class="text-center py-8">
+          <p class="text-gray-500 text-lg">Belum ada promo tersedia saat ini</p>
+          <p class="text-gray-400 text-sm mt-2">Nantikan promo menarik dari kami!</p>
+        </div>
+      @endif
 
     </div>
 

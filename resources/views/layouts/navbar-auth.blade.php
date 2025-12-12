@@ -25,7 +25,7 @@
 
             {{-- RESERVATION --}}
             <li>
-                <a href="{{ route('reservation') }}" 
+                <a href="{{ route('user.reservation.my') }}" 
                    class="px-5 py-2 rounded-xl hover:bg-[#FBF7E7]/80 transition-all duration-300">
                    Reservations
                 </a>
@@ -62,7 +62,7 @@
         <a href="{{ url('/') }}#promo" class="px-5 py-2 rounded-xl hover:bg-[#FBF7E7]/80 transition-all duration-300">Promo</a>
         <a href="{{ url('/') }}#contact" class="px-5 py-2 rounded-xl hover:bg-[#FBF7E7]/80 transition-all duration-300">Contact</a>
 
-        <a href="{{ route('reservation') }}" class="px-5 py-2 rounded-xl hover:bg-[#FBF7E7]/80 transition-all duration-300">Reservations</a>
+        <a href="{{ route('user.reservation.my') }}" class="px-5 py-2 rounded-xl hover:bg-[#FBF7E7]/80 transition-all duration-300">Reservations</a>
 
         <a href="{{ route('profile.show') }}" class="px-5 py-2 rounded-xl hover:bg-[#FBF7E7]/80 transition-all duration-300">Profile</a>
 

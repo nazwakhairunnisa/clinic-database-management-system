@@ -23,7 +23,7 @@
     </p>
 
     <div>
-      <a href="#"
+      <a href="{{ route('user.reservasi.create') }}"
          class="bg-[#FBF7E7] text-[#806B3F] text-lg text-lg md:text-2xl px-8 py-3 rounded-lg 
                 font-abril font-bold border border-[#806B3F]
                 hover:bg-[#806B3F]/70 hover:text-white hover:scale-105 transition-all duration-200 inline-block

@@ -9,11 +9,8 @@
 
 <body class="bg-gray-50 text-gray-800 overflow-x-hidden">
 
-@if (!request()->routeIs('profile.edit'))
-    @include('layouts.navbar-auth')
-@endif
-
-
+{{-- Include Navbar --}}
+  @include('layouts.navbar')
 
   {{-- Jarak agar konten tidak tertutup navbar fixed --}}
   <div class="pt-[90px]">
@@ -31,7 +28,6 @@
 ]))
     @include('components.footer')
 @endif
-
 
 </body>
 </html>

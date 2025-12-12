@@ -22,8 +22,25 @@
             </a>
         </div>
 
+        @if(session('error'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <strong>Error:</strong> {{ session('error') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <strong>Validation Errors:</strong>
+                <ul class="list-disc list-inside mt-2">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{-- FORM --}}
-        <form action="{{ route('owner.treatment.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('owner.treatment.store') }}" method="POST" enctype="multipart/form-data" id="treatmentForm">
             @csrf
 
             {{-- Name & Harga --}}

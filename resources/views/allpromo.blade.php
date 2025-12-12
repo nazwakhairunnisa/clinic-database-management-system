@@ -1,6 +1,6 @@
 @extends('layouts.app_public')
-@section('content')
 
+@section('content')
 <section class="bg-white py-20 px-8">
   <div class="max-w-7xl mx-auto">
 
@@ -12,63 +12,60 @@
     </div>
 
     {{-- Grid Promo --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mt-20 translate-x-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mt-20">
       
-      {{-- Card 1 --}}
-      <div class="text-center">
-        <div class="aspect-square w-[360px] flex items-center justify-center bg-[#f8f4ec] rounded-xl shadow-md mb-8 overflow-hidden transition-transform duration-300 hover:scale-105">
-          <img src="{{ asset('images/promo1.jpg') }}" alt="Promo 1" class="object-cover w-full h-full rounded-xl">
-        </div>
-        <p class="text-[#8C6B3F] text-3xl font-serif font-light -translate-x-4">Available until</p>
-        <p class="text-[#8C6B3F] text-3xl font-serif font-light -translate-x-4">October 15 - October 25</p>
-      </div>
+      @forelse($promos as $promo)
+        <div class="text-center">
+          {{-- Promo Image --}}
+          <div class="aspect-square w-full max-w-[360px] mx-auto flex items-center justify-center bg-[#f8f4ec] rounded-xl shadow-md mb-8 overflow-hidden transition-transform duration-300 hover:scale-105">
+            @if($promo->gambar_promo)
+              <img src="{{ asset('storage/' . $promo->gambar_promo) }}" 
+                   alt="{{ $promo->nama_promo }}" 
+                   class="object-cover w-full h-full rounded-xl">
+            @else
+              <div class="flex items-center justify-center w-full h-full bg-gray-200">
+                <span class="text-gray-400">No Image</span>
+              </div>
+            @endif
+          </div>
 
-      {{-- Card 2 --}}
-      <div class="text-center">
-        <div class="aspect-square w-[360px] flex items-center justify-center bg-[#f8f4ec] rounded-xl shadow-md mb-8 overflow-hidden transition-transform duration-300 hover:scale-105">
-          <img src="{{ asset('images/promo4.jpg') }}" alt="Promo 2" class="object-cover w-full h-full rounded-xl">
-        </div>
-        <p class="text-[#8C6B3F] text-3xl font-serif font-light -translate-x-4">Available until</p>
-        <p class="text-[#8C6B3F] text-3xl font-serif font-light -translate-x-4">October 15 - October 25</p>
-      </div>
+          {{-- Promo Name --}}
+          <h3 class="text-[#8C6B3F] text-2xl font-abril font-semibold mb-2">
+            {{ $promo->nama_promo }}
+          </h3>
 
-      {{-- Card 3 --}}
-      <div class="text-center">
-        <div class="aspect-square w-[360px] flex items-center justify-center bg-[#f8f4ec] rounded-xl shadow-md mb-8 overflow-hidden transition-transform duration-300 hover:scale-105">
-          <img src="{{ asset('images/promo1.jpg') }}" alt="Promo 3" class="object-cover w-full h-full rounded-xl">
-        </div>
-        <p class="text-[#8C6B3F] text-3xl font-serif font-light -translate-x-4">Available until</p>
-        <p class="text-[#8C6B3F] text-3xl font-serif font-light -translate-x-4">October 15 - October 25</p>
-      </div>
+          {{-- Period --}}
+          <p class="text-[#8C6B3F] text-xl font-serif font-light">Available until</p>
+          <p class="text-[#8C6B3F] text-xl font-serif font-light">
+            {{ \Carbon\Carbon::parse($promo->periode_mulai)->format('F d') }} - 
+            {{ \Carbon\Carbon::parse($promo->periode_selesai)->format('F d, Y') }}
+          </p>
 
-      {{-- Baris ke-2 --}}
-      <div class="text-center mt-8">
-        <div class="aspect-square w-[360px] flex items-center justify-center bg-[#f8f4ec] rounded-xl shadow-md mb-8 overflow-hidden transition-transform duration-300 hover:scale-105">
-          <img src="{{ asset('images/promo4.jpg') }}" alt="Promo 4" class="object-cover w-full h-full rounded-xl">
+          {{-- Price Info --}}
+          <div class="mt-4">
+            <span class="text-red-500 text-lg line-through">
+              Rp {{ number_format($promo->treatment->harga, 0, ',', '.') }}
+            </span>
+            <span class="text-green-600 text-2xl font-bold ml-2">
+              Rp {{ number_format($promo->harga_promo, 0, ',', '.') }}
+            </span>
+          </div>
         </div>
-        <p class="text-[#8C6B3F] text-3xl font-serif font-light -translate-x-4">Available until</p>
-        <p class="text-[#8C6B3F] text-3xl font-serif font-light -translate-x-4">October 15 - October 25</p>
-      </div>
-
-      <div class="text-center mt-8">
-        <div class="aspect-square w-[360px] flex items-center justify-center bg-[#f8f4ec] rounded-xl shadow-md mb-8 overflow-hidden transition-transform duration-300 hover:scale-105">
-          <img src="{{ asset('images/promo1.jpg') }}" alt="Promo 5" class="object-cover w-full h-full rounded-xl">
+      @empty
+        <div class="col-span-full text-center py-12">
+          <p class="text-gray-500 text-xl">Belum ada promo tersedia saat ini</p>
         </div>
-        <p class="text-[#8C6B3F] text-3xl font-serif font-light -translate-x-4">Available until</p>
-        <p class="text-[#8C6B3F] text-3xl font-serif font-light -translate-x-4">October 15 - October 25</p>
-      </div>
-
-      <div class="text-center mt-8">
-        <div class="aspect-square w-[360px] flex items-center justify-center bg-[#f8f4ec] rounded-xl shadow-md mb-8 overflow-hidden transition-transform duration-300 hover:scale-105">
-          <img src="{{ asset('images/promo4.jpg') }}" alt="Promo 6" class="object-cover w-full h-full rounded-xl">
-        </div>
-        <p class="text-[#8C6B3F] text-3xl font-serif font-light -translate-x-4">Available until</p>
-        <p class="text-[#8C6B3F] text-3xl font-serif font-light -translate-x-4">October 15 - October 25</p>
-      </div>
+      @endforelse
 
     </div>
+
+    {{-- Pagination --}}
+    @if($promos->hasPages())
+      <div class="mt-12 flex justify-center">
+        {{ $promos->links() }}
+      </div>
+    @endif
+
   </div>
 </section>
-
-
 @endsection

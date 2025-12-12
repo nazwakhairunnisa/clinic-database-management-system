@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class PembelianObat extends Model
+class PembelianObat extends BaseModel
 {
     use HasFactory;
 
     protected $table = 'pembelian_obat';
     protected $primaryKey = 'id_pembelian_obat';
+    public $timestamps = true;
 
     protected $fillable = [
         'id_obat',
@@ -23,9 +24,10 @@ class PembelianObat extends Model
     ];
 
     protected $casts = [
-        'harga_satuan' => 'decimal:2',
         'tanggal_beli' => 'date',
-        'tanggal_jatuh_tempo' => 'date'
+        'tanggal_jatuh_tempo' => 'date',
+        'jumlah' => 'integer',
+        'harga_satuan' => 'decimal:2'
     ];
 
     // Relationships
@@ -39,14 +41,34 @@ class PembelianObat extends Model
         return $this->belongsTo(Supplier::class, 'id_supplier', 'id_supplier');
     }
 
+    // Accessor untuk total harga
+    public function getTotalHargaAttribute()
+    {
+        return $this->jumlah * $this->harga_satuan;
+    }
+
+    // Relasi ke Transaksi Keuangan
     public function transaksiKeuangan()
     {
         return $this->hasOne(TransaksiKeuangan::class, 'id_pembelian_obat', 'id_pembelian_obat');
     }
 
-    // Accessor untuk total harga
-    public function getTotalHargaAttribute()
+    // Accessor untuk status badge color
+    public function getStatusColorAttribute()
     {
-        return $this->jumlah * $this->harga_satuan;
+        return match($this->status_pembayaran) {
+            'lunas' => 'green',
+            'belum' => 'red',
+            default => 'gray'
+        };
+    }
+
+    public function getStatusTextAttribute()
+    {
+        return match($this->status_pembayaran) {
+            'lunas' => 'Sudah Dibayar',
+            'belum' => 'Belum Dibayar',
+            default => '-'
+        };
     }
 }

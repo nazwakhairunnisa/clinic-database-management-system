@@ -23,51 +23,53 @@
     </div>
 
     {{-- Treatment Cards --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-16 justify-items-center px-4 sm:px-0 mb-0">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-16 justify-items-center px-4 sm:px-0 mb-8">
 
-      {{-- Card 1 --}}
-      <div class="bg-white border border-[#806B3F] p-6 sm:p-8 w-full sm:w-[360px] md:w-[380px] flex flex-col shadow-lg 
-                  transition-all duration-300 hover:scale-105 rounded-xl hover:shadow-2xl">
-        <img src="{{ asset('images/treatment1.jpg') }}" alt="Peeling Brightening"
-             class="w-full h-[220px] sm:h-[260px] md:h-[300px] rounded-lg object-cover mb-6">
-        <h3 class="text-2xl sm:text-3xl font-bold text-[#806B3F] font-abril mb-3">Peeling Brightening</h3>
-        <div class="bg-[#FBF7E7] border-2 border-[#806B3F] px-4 py-1 rounded-lg text-[#806B3F] font-abril font-light text-xl sm:text-2xl w-fit mb-4">
-          RP 199.000
-        </div>
-        <p class="text-black text-[16px] sm:text-lg md:text-xl leading-relaxed">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
-        </p>
-      </div>
+      @forelse($treatments as $treatment)
+        <div class="bg-white border border-[#806B3F] p-6 sm:p-8 w-full sm:w-[360px] md:w-[380px] flex flex-col shadow-lg 
+                    transition-all duration-300 hover:scale-105 rounded-xl hover:shadow-2xl">
+          
+          {{-- Treatment Image --}}
+          @if($treatment->foto_treatment)
+            <img src="{{ asset('storage/' . $treatment->foto_treatment) }}" 
+                 alt="{{ $treatment->nama_treatment }}"
+                 class="w-full h-[220px] sm:h-[260px] md:h-[300px] rounded-lg object-cover mb-6">
+          @else
+            <div class="w-full h-[220px] sm:h-[260px] md:h-[300px] rounded-lg bg-gray-200 mb-6 flex items-center justify-center">
+              <span class="text-gray-400">No Image</span>
+            </div>
+          @endif
 
-      {{-- Card 2 --}}
-      <div class="bg-white border border-[#806B3F] p-6 sm:p-8 w-full sm:w-[360px] md:w-[380px] flex flex-col shadow-lg 
-                  transition-all duration-300 hover:scale-105 rounded-xl hover:shadow-2xl">
-        <img src="{{ asset('images/treatment2.jpg') }}" alt="Facial Detox"
-             class="w-full h-[220px] sm:h-[260px] md:h-[300px] rounded-lg object-cover mb-6">
-        <h3 class="text-2xl sm:text-3xl font-bold text-[#806B3F] font-abril mb-3">Facial Detox</h3>
-        <div class="bg-[#FBF7E7] border-2 border-[#806B3F] px-4 py-1 rounded-lg text-[#806B3F] font-abril font-light text-xl sm:text-2xl w-fit mb-4">
-          RP 119.000
-        </div>
-        <p class="text-black text-[16px] sm:text-lg md:text-xl leading-relaxed">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
-        </p>
-      </div>
+          {{-- Treatment Name --}}
+          <h3 class="text-2xl sm:text-3xl font-bold text-[#806B3F] font-abril mb-3">
+            {{ $treatment->nama_treatment }}
+          </h3>
 
-      {{-- Card 3 --}}
-      <div class="bg-white border border-[#806B3F] p-6 sm:p-8 w-full sm:w-[360px] md:w-[380px] flex flex-col shadow-lg 
-                  transition-all duration-300 hover:scale-105 rounded-xl hover:shadow-2xl">
-        <img src="{{ asset('images/treatment3.jpg') }}" alt="Glasskin Booster"
-             class="w-full h-[220px] sm:h-[260px] md:h-[300px] rounded-lg object-cover mb-6">
-        <h3 class="text-2xl sm:text-3xl font-bold text-[#806B3F] font-abril mb-3">Glasskin Booster</h3>
-        <div class="bg-[#FBF7E7] border-2 border-[#806B3F] px-4 py-1 rounded-lg text-[#806B3F] font-abril font-light text-xl sm:text-2xl w-fit mb-4">
-          RP 599.000
+          {{-- Price --}}
+          <div class="bg-[#FBF7E7] border-2 border-[#806B3F] px-4 py-1 rounded-lg text-[#806B3F] font-abril font-light text-xl sm:text-2xl w-fit mb-4">
+            Rp {{ number_format($treatment->harga, 0, ',', '.') }}
+          </div>
+
+          {{-- Description --}}
+          <p class="text-black text-[16px] sm:text-lg md:text-xl leading-relaxed">
+            {{ Str::limit($treatment->deskripsi ?? 'Deskripsi tidak tersedia', 100) }}
+          </p>
         </div>
-        <p class="text-black text-[16px] sm:text-lg md:text-xl leading-relaxed">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
-        </p>
-      </div>
+      @empty
+        <div class="col-span-full text-center py-12">
+          <p class="text-gray-500 text-xl">Belum ada treatment tersedia</p>
+        </div>
+      @endforelse
 
     </div>
+
+    {{-- Pagination --}}
+    @if($treatments->hasPages())
+      <div class="mt-12 flex justify-center">
+        {{ $treatments->links() }}
+      </div>
+    @endif
+
   </div>
 </section>
 @endsection

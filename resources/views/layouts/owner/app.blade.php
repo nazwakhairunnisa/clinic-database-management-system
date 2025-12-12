@@ -5,6 +5,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <title>@yield('pageTitle', 'Dashboard')</title>
 
   {{-- Fonts --}}
@@ -62,10 +64,13 @@
       <iconify-icon icon="tabler:bell" class="text-xl text-gray-700"></iconify-icon>
     </button>
 
-    <a href="#" class="flex items-center bg-gray-200/50 rounded-lg hover:bg-gray-300 px-3 py-2 transition">
-      <iconify-icon icon="tabler:logout" class="text-2xl text-gray-700"></iconify-icon>
-      <span class="hidden sm:inline ml-2 text-base font-normal text-gray-700">Logout</span>
-    </a>
+    <form method="POST" action="{{ route('logout') }}" class="inline-flex items-center h-10 mt-4">
+      @csrf
+      <button type="submit" class="inline-flex items-center h-10 px-3 bg-gray-200/50 rounded-lg hover:bg-gray-300 transition">
+        <iconify-icon icon="tabler:logout" class="text-xl text-gray-700 align-middle"></iconify-icon>
+        <span class="hidden sm:inline ml-2 text-base font-normal text-gray-700">Logout</span>
+      </button>
+    </form>
   </div>
 </nav>
 
@@ -77,10 +82,10 @@
   <div class="flex-1 p-10 overflow-y-auto">
     {{-- compute which submenu should be open based on current route --}}
     @php
-      $openLayanan = request()->routeIs('owner.treatment') || request()->routeIs('owner.promo') || request()->is('owner/treatment*') || request()->is('owner/promo*');
-      $openInventori = request()->routeIs('owner.obat') || request()->routeIs('owner.pembelian_obat') || request()->is('owner/obat*') || request()->is('owner/pembelian_obat*');
-      $openKeuangan = request()->routeIs('owner.pengeluaran') || request()->routeIs('owner.pendapatan') || request()->is('owner/pengeluaran*') || request()->is('owner/pendapatan*');
-      $openLaporan = request()->routeIs('owner.laporan.penjualan') || request()->is('owner/laporan*');
+      $openLayanan = request()->routeIs('owner.treatment.*') || request()->routeIs('owner.promo.*');
+      $openInventori = request()->routeIs('owner.stok-obat.*') || request()->routeIs('owner.supplier.*') || request()->routeIs('owner.pembelian_obat.*');
+      $openKeuangan = request()->routeIs('owner.pengeluaran.*') || request()->routeIs('owner.pendapatan.*');
+      $openLaporan = request()->routeIs('owner.laporan_penjualan.*');
     @endphp
 
     <ul class="space-y-1.5 text-[#806B3F]">
@@ -94,8 +99,8 @@
 
       {{-- Jadwal Reservasi --}}
       <li>
-        <a href="{{ route('owner.jadwal') }}"
-          class="flex items-center rounded-lg text-[1rem] {{ request()->routeIs('owner.jadwal') ? 'bg-[#E9E1C5] font-semibold' : 'hover:bg-[#E9E1C5]' }}">
+        <a href="{{ route('owner.jadwal_reservasi.index') }}"
+          class="flex items-center rounded-lg text-[1rem] {{ request()->routeIs('owner.jadwal_reservasi.*') ? 'bg-[#E9E1C5] font-semibold' : 'hover:bg-[#E9E1C5]' }}">
           <iconify-icon icon="material-symbols-light:schedule-outline" class="text-xl mr-2 text-black"></iconify-icon>
           Jadwal Reservasi
         </a>
@@ -103,7 +108,7 @@
 
       {{-- Daftar Pasien --}}
       <li>
-        <a href="{{ route('owner.pasien') }}" class="flex items-center rounded-lg hover:bg-[#E9E1C5] text-[1rem]">
+        <a href="{{ route('owner.pasien.index') }}" class="flex items-center rounded-lg hover:bg-[#E9E1C5] text-[1rem]">
           <iconify-icon icon="circum:user" class="text-xl mr-2 text-black"></iconify-icon>
           Daftar Pasien
         </a>
@@ -125,8 +130,8 @@
         <div class="border-b border-[#806B3F] ml-[1.8rem]"></div>
 
         <ul class="ml-[2.2rem] mt-[4px] space-y-1 submenu {{ $openLayanan ? '' : 'hidden' }}">
-          <li><a href="{{ route('owner.treatment') }}" class="block text-[1rem] hover:text-gray-700">Daftar Treatment</a></li>
-          <li><a href="{{ route('owner.promo') }}" class="block text-[1rem] hover:text-gray-700">Daftar Promo</a></li>
+          <li><a href="{{ route('owner.treatment.index') }}" class="block text-[1rem] hover:text-gray-700">Daftar Treatment</a></li>
+          <li><a href="{{ route('owner.promo.index') }}" class="block text-[1rem] hover:text-gray-700">Daftar Promo</a></li>
         </ul>
       </li>
         <div class="h-1"></div>
@@ -145,8 +150,9 @@
         <div class="border-b border-[#806B3F] ml-[1.8rem]"></div>
 
         <ul class="ml-[2.2rem] mt-[4px] space-y-1 submenu {{ $openInventori ? '' : 'hidden' }}">
-          <li><a href="{{ route('owner.obat') }}" class="block text-[1rem] hover:text-gray-700">Daftar Obat</a></li>
-          <li><a href="{{ route('owner.pembelian_obat') }}" class="block text-[1rem] hover:text-gray-700">Pembelian Obat</a></li>
+          <li><a href="{{ route('owner.stok-obat.index') }}" class="block text-[1rem] hover:text-gray-700">Daftar Obat</a></li>
+          <li><a href="{{ route('owner.supplier.index') }}" class="block text-[1rem] hover:text-gray-700">Supplier</a></li>
+          <li><a href="{{ route('owner.pembelian_obat.index') }}" class="block text-[1rem] hover:text-gray-700">Pembelian Obat</a></li>
         </ul>
       </li>
         <div class="h-1"></div>
@@ -165,8 +171,8 @@
         <div class="border-b border-[#806B3F] ml-[1.8rem]"></div>
 
         <ul class="ml-[2.2rem] mt-[4px] space-y-1 submenu {{ $openKeuangan ? '' : 'hidden' }}">
-          <li><a href="{{ route('owner.pengeluaran') }}" class="block text-[1rem] hover:text-gray-700">Pengeluaran</a></li>
-          <li><a href="{{ route('owner.pendapatan') }}" class="block text-[1rem] hover:text-gray-700">Pendapatan</a></li>
+          <li><a href="{{ route('owner.pengeluaran.index') }}" class="block text-[1rem] hover:text-gray-700">Pengeluaran</a></li>
+          <li><a href="{{ route('owner.pendapatan.index') }}" class="block text-[1rem] hover:text-gray-700">Pendapatan</a></li>
         </ul>
       </li>
         <div class="h-1"></div>
@@ -185,7 +191,7 @@
         <div class="border-b border-[#806B3F] ml-[1.8rem]"></div>
 
         <ul class="ml-[2.2rem] mt-[4px] space-y-1 submenu {{ $openLaporan ? '' : 'hidden' }}">
-          <li><a href="{{ route('owner.laporan.penjualan') }}" class="block text-[1rem] hover:text-gray-700">Laporan Penjualan</a></li>
+          <li><a href="{{ route('owner.laporan_penjualan.index') }}" class="block text-[1rem] hover:text-gray-700">Laporan Penjualan</a></li>
         </ul>
       </li>
     </ul>
@@ -196,13 +202,18 @@
     <iconify-icon icon="ion:person-circle-outline" class="text-5xl"></iconify-icon>
     <div class="ml-2 leading-tight">
       <p>Logged in as</p>
-      <p class="font-bold text-base">Owner</p>
+      <p class="font-bold text-base">{{ Auth::user()->username }}</p>
+      <!-- <p class="text-xs text-gray-300">{{ ucfirst(Auth::user()->role) }}</p> -->
     </div>
   </div>
 </aside>
 
 {{-- BACKDROP MOBILE --}}
-<div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 bg-black bg-opacity-40 z-30 lg:hidden"></div>
+<div x-show="sidebarOpen"
+     @click="sidebarOpen = false"
+     class="fixed inset-0 bg-black bg-opacity-40 z-30 lg:hidden"
+     :class="sidebarOpen ? 'pointer-events-auto' : 'pointer-events-none'">
+</div>
 
 {{-- MAIN CONTENT --}}
 <main class="relative z-0">
