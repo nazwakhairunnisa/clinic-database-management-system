@@ -451,11 +451,15 @@ function openEditModal(jadwal) {
     document.getElementById('jadwalForm').action = `/admin/jadwal-operasional/${jadwal.id_jadwal}`;
     document.getElementById('formMethod').value = 'PUT';
     
+    // ✅ Convert waktu dari HH:mm:ss ke HH:mm untuk input time
+    const jamMulai = jadwal.jam_mulai.substring(0, 5);  // 09:00:00 → 09:00
+    const jamSelesai = jadwal.jam_selesai.substring(0, 5); // 17:00:00 → 17:00
+    
     // Fill form
     document.getElementById('hari_tanggal').value = jadwal.hari_tanggal;
     document.getElementById('hari_tanggal').disabled = true; // Tanggal tidak bisa diubah
-    document.getElementById('jam_mulai').value = jadwal.jam_mulai;
-    document.getElementById('jam_selesai').value = jadwal.jam_selesai;
+    document.getElementById('jam_mulai').value = jamMulai;
+    document.getElementById('jam_selesai').value = jamSelesai;
     document.getElementById('status_operasional').value = jadwal.status_operasional;
     document.getElementById('keterangan').value = jadwal.keterangan || '';
     

@@ -103,6 +103,12 @@ class JadwalOperasionalController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // ✅ Convert jam dari database (HH:mm:ss) ke format H:i untuk validasi
+        $request->merge([
+            'jam_mulai' => substr($request->jam_mulai, 0, 5),    // 09:00:00 → 09:00
+            'jam_selesai' => substr($request->jam_selesai, 0, 5)  // 17:00:00 → 17:00
+        ]);
+        
         $request->validate([
             'jam_mulai' => 'required|date_format:H:i',
             'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
@@ -216,6 +222,7 @@ class JadwalOperasionalController extends Controller
         ]);
 
         try {
+            DB::beginTransaction();
 
             $tanggalMulai = Carbon::parse($request->tanggal_mulai);
             $tanggalSelesai = Carbon::parse($request->tanggal_selesai);
@@ -253,6 +260,7 @@ class JadwalOperasionalController extends Controller
                 $inserted++;
             }
 
+            DB::commit();
 
             $message = "Berhasil menambahkan {$inserted} jadwal.";
             if ($skipped > 0) {

@@ -10,7 +10,7 @@
     <div class="bg-white rounded-2xl shadow-lg w-full max-w-3xl p-6 sm:p-8 transition-all duration-300 relative">
 
         {{-- Tombol X --}}
-        <a href="{{ route('owner.pendapatan') }}" 
+        <a href="{{ route('owner.pendapatan.index') }}" 
            class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition">
             <i class="fa-solid fa-xmark text-2xl"></i>
         </a>
@@ -128,7 +128,7 @@
                     class="bg-[#2F9CCA] text-white px-6 py-2 rounded-lg hover:bg-[#1788b4] transition">
                     Save Changes
                 </button>
-                <a href="{{ route('owner.pendapatan') }}"
+                <a href="{{ route('owner.pendapatan.index') }}"
                     class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 transition">
                     Cancel
                 </a>

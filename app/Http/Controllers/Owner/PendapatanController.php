@@ -54,7 +54,7 @@ class PendapatanController extends Controller
      */
     public function create()
     {
-        return view('owner.add_pendapatan');
+        return view('owner.pendapatan.create');
     }
 
     /**
